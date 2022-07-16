@@ -13,7 +13,7 @@ const Text = styled.p<
     ${styleWithCondition(
       props.large,
       css`
-        font-size: 24px;
+        font-size: 18px;
       `
     )}
 

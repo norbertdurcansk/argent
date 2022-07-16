@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './views/App'
-import { GlobalStyles } from './views/GlobalStyles'
+import App from './App'
+import { GlobalStyles } from './GlobalStyles'
 import { ThemeProvider } from 'styled-components'
 import theme from './ui/theme'
 

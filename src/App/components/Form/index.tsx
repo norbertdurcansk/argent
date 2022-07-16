@@ -13,19 +13,14 @@ interface Props {
   onSubmit: (values: FormValues) => void
 }
 
-const validAddress = (value: string) => {
-  if (value !== '0x') {
-    return 'format'
-  }
-}
 
 const Form = ({ onSubmit }: Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors,isSubmitting },
+    formState: { errors, isSubmitting },
   } = useForm({
-    mode: 'onChange',
+    mode: 'onBlur',
     defaultValues: {
       address: '',
     },
@@ -42,12 +37,11 @@ const Form = ({ onSubmit }: Props) => {
             type="text"
             {...register('address', {
               required: true,
-              validate: validAddress,
             })}
           />
           {errors?.address ? (
             <Text className="absolute left-[8px] bottom-[-20px]" small error>
-              {errors?.address.type == 'required' ? <>Required</> : <>Wrong address format</>}
+              {errors?.address.type == 'required' ? <>Required</> : null}
             </Text>
           ) : null}
         </div>
