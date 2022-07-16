@@ -13,12 +13,12 @@ yarn
 
 ## Run application in DEV mode
 
-``sh
+```sh
 yarn start
-``
+```
 
 ## Build
 
-``sh
+```sh
 yarn build
-``
+```
