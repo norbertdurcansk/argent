@@ -13,7 +13,6 @@ interface Props {
   onSubmit: (values: FormValues) => void
 }
 
-
 const Form = ({ onSubmit }: Props) => {
   const {
     register,

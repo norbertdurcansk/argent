@@ -1,11 +1,11 @@
 const theme = {
   color: {
-    red:{
-      base:'#A31621'
+    red: {
+      base: '#A31621',
     },
     gray: {
       base: '#CED3DC',
-      100: "#FCF7F8"
+      100: '#FCF7F8',
     },
   },
 }

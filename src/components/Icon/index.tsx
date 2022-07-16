@@ -12,13 +12,12 @@ interface Props {
   width?: string | number
 }
 
-const Icon = ({ src, height = "auto", width = "auto" }: Props) => {
+const Icon = ({ src, height = 'auto', width = 'auto' }: Props) => {
   return (
     <div style={{ height, width }}>
       <Img src={src} />
     </div>
   )
 }
-
 
 export default Icon

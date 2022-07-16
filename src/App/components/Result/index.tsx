@@ -12,13 +12,13 @@ const Result = ({ balance, guardianCount, erc20 }: Props) => {
         </Text>
       </div>
       <div>
-        <Text>Number of guardians</Text>
+        <Text>Number of Guardians</Text>
         <Text className="mt-1" large medium>
           {guardianCount}
         </Text>
       </div>
       <div>
-        <Text>ERC20 tokens</Text>
+        <Text>ERC20 Tokens</Text>
         {erc20.map(({ address, symbol, balance }) => (
           <div key={address} className="flex">
             <Text className="mr-2" large>

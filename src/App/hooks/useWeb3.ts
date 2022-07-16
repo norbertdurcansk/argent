@@ -21,6 +21,7 @@ interface ApiResponse {
       contract_ticker_symbol: string
       contract_address: string
       contract_decimals: number
+      supports_erc?: Array<string>
       balance: bigint
     }>
   }
@@ -39,6 +40,7 @@ export const getERC20Balances = async (address: string) => {
     (
       acc,
       {
+        supports_erc: supportsErc,
         contract_ticker_symbol: symbol,
         contract_address: address,
         contract_decimals: decimals,
@@ -48,7 +50,7 @@ export const getERC20Balances = async (address: string) => {
       const balanceBN = ethers.BigNumber.from(balance)
 
       // && balanceBN.gt(0) -> if only with some value
-      if (decimals && symbol) {
+      if (supportsErc && supportsErc.includes('erc20') && decimals && symbol) {
         acc.push({ address, symbol, balance: ethers.utils.formatUnits(balanceBN, decimals) })
       }
 

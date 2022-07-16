@@ -9,14 +9,25 @@ import { log } from '~/utils/logger'
 import useWeb3, { getGuardianCount, getERC20Balances, validateArgentAddress } from './hooks/useWeb3'
 import { ethers } from 'ethers'
 
+enum SubmissionState {
+  INIT = 'INIT',
+  SUCCESS = 'SUCCESS',
+  NO_RESULTS = 'NO_RESULTS',
+  ERROR = 'ERROR',
+}
+
 const App = () => {
   const [isLoading, setIsLoading] = React.useState(false)
   const { provider, guardianManager, agentWalletDetector } = useWeb3()
-  const [state, setState] = React.useState<ResultType | null>()
+  const [state, setState] = React.useState<ResultType | undefined>()
+  const [submissionState, setSubmissionState] = React.useState<SubmissionState>(
+    SubmissionState.INIT
+  )
 
   const onSubmit = async ({ address }: FormValues) => {
     setIsLoading(true)
-    setState(null)
+    setSubmissionState(SubmissionState.INIT)
+    setState(undefined)
 
     try {
       const isValidAddress = await validateArgentAddress(agentWalletDetector.current, address)
@@ -33,9 +44,13 @@ const App = () => {
           balance,
           erc20,
         })
+        setSubmissionState(SubmissionState.SUCCESS)
+      } else {
+        setSubmissionState(SubmissionState.NO_RESULTS)
       }
     } catch (error) {
       log.error(`Unable to search address`, error)
+      setSubmissionState(SubmissionState.ERROR)
     }
 
     setIsLoading(false)
@@ -45,7 +60,10 @@ const App = () => {
     <Container>
       <Form onSubmit={onSubmit} />
       {isLoading ? <Text large>Loading...</Text> : null}
-      {state ? <Result {...state} /> : null}
+      {[SubmissionState.NO_RESULTS, SubmissionState.ERROR].includes(submissionState) ? (
+        <Text large>No results :(</Text>
+      ) : null}
+      {submissionState === SubmissionState.SUCCESS && state ? <Result {...state} /> : null}
     </Container>
   )
 }
